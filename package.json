@@ -1,0 +1,19 @@
+{
+  "name": "open-policy-agent",
+  "version": "1.0.0",
+  "description": "Node module for Open Policy Agent https://github.com/open-policy-agent/opa",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fnzc/node-open-policy-agent.git"
+  },
+  "author": "Jeremy Farnault <farnaultjeremy@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fnzc/node-open-policy-agent/issues"
+  },
+  "homepage": "https://github.com/fnzc/node-open-policy-agent#readme"
+}
