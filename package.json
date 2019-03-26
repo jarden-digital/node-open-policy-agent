@@ -1,5 +1,5 @@
 {
-  "name": "open-policy-agent",
+  "name": "@fnzc/node-open-policy-agent",
   "version": "1.0.0",
   "description": "Node module for Open Policy Agent https://github.com/open-policy-agent/opa",
   "main": "index.js",

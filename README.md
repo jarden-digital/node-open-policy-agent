@@ -7,11 +7,11 @@ _Node module for Open Policy Agent https://github.com/open-policy-agent/opa_
 ## Installation
 
 ```
-npm install --save node-open-policy-agent
+npm install --save @fnzc/node-open-policy-agent
 ```
 or
 ```
-yarn add node-open-policy-agent
+yarn add @fnzc/node-open-policy-agent
 ```
 
 ## Usage
