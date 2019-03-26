@@ -4,7 +4,8 @@
   "description": "Node module for Open Policy Agent https://github.com/open-policy-agent/opa",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "preinstall": "node ./downloadOpa.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/fnzc/node-open-policy-agent/issues"
   },
-  "homepage": "https://github.com/fnzc/node-open-policy-agent#readme"
+  "homepage": "https://github.com/fnzc/node-open-policy-agent#readme",
+  "dependencies": {
+    "fetch": "^1.1.0"
+  },
+  "devDependencies": {
+    "jest": "^24.5.0"
+  }
 }
