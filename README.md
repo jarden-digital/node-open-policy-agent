@@ -22,7 +22,7 @@ Options to provide to the OPA command are represented by an object. Provide an e
 All functions come with a `help` option that you can print to see the specific usage.
 
 ```
-const {parse} = require('node-open-policy-agent');
+const {parse} = require('@fnzc/node-open-policy-agent');
 parse(res => console.log('Res: ', res), {help: ''})
 ```
 
@@ -30,7 +30,7 @@ You can also use the `test/test.js` file provided in the package to see basic us
 Basic usage:
 
 ```
-const {evalQueryBoolean} = require('node-open-policy-agent');
+const {evalQueryBoolean} = require('@fnzc/node-open-policy-agent');
 evalQueryBoolean(
     res => console.log('Res: ', res),
     {data: 'test/example.rego', input: 'test/data.json', package: 'opa.example'}
