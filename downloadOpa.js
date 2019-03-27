@@ -1,8 +1,13 @@
 const fetchUrl = require("fetch").fetchUrl;
 const fs = require("fs");
+const path = require('path');
+
+let isWindows = process.platform === "win32"
+let fileName = 'opa' + (isWindows ? '.exe' : '')
+let opaPath = path.join(__dirname, fileName)
 
 main = () => {
-  fs.exists('./opa', (exists) => {
+  fs.exists(opaPath, (exists) => {
     if (!exists) getUrl()
   });
 }
@@ -25,10 +30,10 @@ download = (url) => {
 }
 
 write = (body) => {
-  fs.writeFile("opa", body, (err, data) => {
+  fs.writeFile(fileName, body, (err, data) => {
     if (err) console.log('Error writing', err)
     else console.log('Writing successful')
-    fs.chmodSync('./opa', '755');
+    fs.chmodSync(opaPath, '755');
   })
 }
 

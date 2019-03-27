@@ -1,49 +1,39 @@
 const {evalQueryBoolean, check, deps, evalQuery, fmt, help, parse, version} = require('../index.js')
 
 test('rego file to be valid', () => {
-  check(c => {
-    expect(c).toBe('')
-  }, {query: 'test/example.rego'})
+  check({query: 'test/example.rego'},
+    (err, c) => expect(c).toBe(''))
 })
 
 test('query to have no dependencies', () => {
-  deps(c => {
-    expect(c).toBe('')
-  }, {query: 'x = 1; y = 2; x < y'})
+  deps({query: 'x = 1; y = 2; x < y'},
+    (err, c) => expect(c).toBe(''))
 })
 
 test('example policy to return data', () => {
-  evalQuery(c => {
-    expect(c).toContain('allow')
-  }, {data: 'test/example.rego', input: 'test/data.json', query: 'data'})
+  evalQuery({data: 'test/example.rego', input: 'test/data.json', query: 'data'},
+    (err, c) => expect(c).toContain('allow'))
 })
 
 test('example policy returns true', () => {
-  evalQueryBoolean(c => {
-    expect(c).toBe(true)
-  }, {data: 'test/example.rego', input: 'test/data.json', package: 'opa.example'})
+  evalQueryBoolean({data: 'test/example.rego', input: 'test/data.json', package: 'opa.example'},
+    (err, c) => expect(c).toBe(true))
 })
 
 test('formatted file to contain a rule existing in the original file', () => {
-  fmt(c => {
-    expect(c).toContain('user_has_role')
-  }, {query: 'test/example.rego'})
+  fmt({query: 'test/example.rego'},
+    (err, c) => expect(c).toContain('user_has_role'))
 })
 
 test('help page to contain the header', () => {
-  help(c => {
-    expect(c).toContain('An open source project to policy-enable your service')
-  })
+  help((err, c) => expect(c).toContain('An open source project to policy-enable your service'))
 })
 
 test('parsed file to contain one of the existing rules', () => {
-  parse(c => {
-    expect(c).toContain('role_has_permission')
-  }, {query: 'test/example.rego'})
+  parse({query: 'test/example.rego'},
+    (err, c) => expect(c).toContain('role_has_permission'))
 })
 
 test('version contains Version:', () => {
-  version(c => {
-    expect(c).toContain('Version:')
-  })
+  version((err, c) => expect(c).toContain('Version:'))
 })
