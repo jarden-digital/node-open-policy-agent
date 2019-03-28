@@ -18,12 +18,20 @@ yarn add @fnzc/node-open-policy-agent
 
 _See `Functions` section for a list of the provided functions._
 
+*All functions can be called using a callback but they also return a promise.*
+
 Options to provide to the OPA command are represented by an object. Provide an empty string for self-sufficient options (e.g: `help`).
 All functions come with a `help` option that you can print to see the specific usage.
 
 ```
 const {parse} = require('@fnzc/node-open-policy-agent');
-parse(res => console.log('Res: ', res), {help: ''})
+parse({help: ''}, res => console.log('Res: ', res))
+
+const helpRes = async () {
+    const res = await parse({help: ''});
+    console.log(res);
+}
+helpRes()
 ```
 
 You can also use the `test/test.js` file provided in the package to see basic usage of all the functions.
@@ -32,9 +40,15 @@ Basic usage:
 ```
 const {evalQueryBoolean} = require('@fnzc/node-open-policy-agent');
 evalQueryBoolean(
-    res => console.log('Res: ', res),
-    {data: 'test/example.rego', input: 'test/data.json', package: 'opa.example'}
+    {data: 'test/example.rego', input: 'test/data.json', package: 'opa.example'},
+    res => console.log('Res: ', res)
 )
+
+const evalRes = async () {
+    const res = await evalQueryBoolean({data: 'test/example.rego', input: 'test/data.json', package: 'opa.example'});
+    console.log(res);
+}
+evalRes()
 ```
 
 ## Functions
