@@ -34,7 +34,18 @@ const evalQueryBoolean = (args, callback) => {
   const opts = ['coverage', 'data', 'explain', 'fail', 'format', 'help', 'ignore', 'import', 'input', 'metrics',
     'package', 'partial', 'pretty-limit', 'profile', 'profile-limit', 'profile-sort', 'stdin', 'stdin-input', 'unknown']
   const cmd = opaPath + 'eval ' + transformArgs(args, opts) + `"data.${args['package']}.allow"`
-  return executeCommand(cmd, (err, res) => callback(err, JSON.parse(res).result[0].expressions[0].value))
+  return executeCommand(cmd).then((result) =>
+    new Promise(((resolve, reject) => {
+      try {
+        const value = JSON.parse(result).result[0].expressions[0].value
+        if (callback) callback(null, value)
+        resolve(value)
+      } catch (e) {
+        if (callback) callback(e, value)
+        reject(e)
+      }
+    }))
+  )
 }
 
 const fmt = (args, callback) => {
@@ -43,9 +54,7 @@ const fmt = (args, callback) => {
   return executeCommand(cmd, callback)
 }
 
-const help = (callback) => {
-  return executeCommand(opaPath + 'help', callback)
-}
+const help = (callback) => executeCommand(opaPath + 'help', callback)
 
 const parse = (args, callback) => {
   const opts = ['format', 'help']
@@ -59,19 +68,16 @@ const testRego = (args, callback) => {
   return executeCommand(cmd, callback)
 }
 
-const version = (callback) => {
-  return executeCommand(opaPath + 'version', callback)
-}
+const version = (callback) => executeCommand(opaPath + 'version', callback)
 
-const executeCommand = (cmd, callback) => {
-  if (callback) exec(cmd, (err, stdout) => callback(err, stdout))
-  return new Promise((resolve, reject) => {
+const executeCommand = (cmd, callback) => new Promise(
+  (resolve, reject) => {
     exec(cmd, (err, stdout) => {
+      if (callback) callback(err, stdout)
       if (err) reject(err)
       resolve(stdout)
     })
   })
-}
 
 const transformArgs = (args, opts) => {
   let argsString = ''
